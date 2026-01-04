@@ -1,4 +1,4 @@
-A beautiful, locally-hosted catalogue for organizing and tracking your favorite fanfiction from Archive of Our Own.
+A beautiful, locally-hosted catalogue for organizing and tracking your favorite fanfiction.
 
 ## Features
 
@@ -21,7 +21,7 @@ A beautiful, locally-hosted catalogue for organizing and tracking your favorite 
 1. Click the **+ Add Fic** button
 2. Fill in:
    - **Title of Work** - the fic name
-   - **Archive Link** - the AO3 URL
+   - **Archive Link** - the site URL
    - **Universe** - the fandom
    - **Ship** (optional) - the pairing(s)
    - **Themes & Elements** - comma-separated tags
