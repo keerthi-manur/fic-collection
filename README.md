@@ -12,7 +12,11 @@ A beautiful, locally-hosted catalogue for organizing and tracking your favorite 
 
 ## How to Use
 
-### Opening the Catalogue
+### Option 1 - Github Page
+1. Click on __________
+2. That's it!
+
+### Option 2 - Opening the Catalogue
 1. Download the `index.html` file
 2. Open it in your web browser (works in Chrome, Firefox, Safari, Edge, etc.)
 3. That's it! No installation or setup needed
