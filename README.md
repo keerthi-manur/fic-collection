@@ -13,7 +13,7 @@ A beautiful, locally-hosted catalogue for organizing and tracking your favorite 
 ## How to Use
 
 ### Option 1 - Github Page
-1. Click on `https://keerthi-manur.github.io/fic-collection`
+1. Click on https://keerthi-manur.github.io/fic-collection
 2. That's it!
 
 ### Option 2 - Opening the Catalogue
