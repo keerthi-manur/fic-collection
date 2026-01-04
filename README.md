@@ -92,7 +92,3 @@ You can customize the appearance by editing the CSS in the HTML file:
 - Add detailed notes about what makes a fic special to you
 - Regularly export your collection as a backup
 - Use the ship filter to find all your favorite pairings at a glance
-
----
-
-Made with ✦ for AO3 lovers everywhere
