@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Fics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #2a1f18 0%, #1f1813 50%, #241d16 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #e0c9b3;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            font-style: italic;
+            color: #b8a895;
+            letter-spacing: 2px;
+        }
+
+        .form-section {
+            background: linear-gradient(135deg, #423830 0%, #3a3027 100%);
+            border: 2px solid #8b7a6a;
+            border-radius: 2px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            position: relative;
+            display: none;
+        }
+
+        .form-section.show {
+            display: block;
+        }
+
+        .form-section::before {
+            content: "✦";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #b8a895;
+            font-size: 24px;
+        }
+
+        .form-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            color: #a8c9a8;
+            margin-bottom: 25px;
+            font-size: 28px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #8b7a6a;
+            padding-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #d4af87;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #5a4f47;
+            border-radius: 0;
+            background: #2d2419;
+            color: #d4af87;
+            font-family: 'Crimson Text', serif;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #8b7a6a;
+            box-shadow: 0 0 10px rgba(139,122,106,0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: linear-gradient(135deg, #7a9a8a 0%, #5f7f74 100%);
+            color: #f5ede0;
+            padding: 12px 30px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #8fac9b 0%, #7a9a8a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .cancel-btn {
+            background: linear-gradient(135deg, #8b7a6a 0%, #6f5e52 100%);
+        }
+
+        .cancel-btn:hover {
+            background: linear-gradient(135deg, #a89880 0%, #8b7a6a 100%);
+        }
+
+        .stats {
+            text-align: center;
+            color: #b8a895;
+            margin-bottom: 30px;
+            font-size: 16px;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-dropdown {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .dropdown-select {
+            padding: 10px 20px;
+            background: #2d2419;
+            color: #a8c9a8;
+            border: 2px solid #5a4f47;
+            border-radius: 0;
+            cursor: pointer;
+            font-family: 'Crimson Text', serif;
+            font-size: 15px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .dropdown-select:hover {
+            border-color: #7a9a8a;
+        }
+
+        .dropdown-select:focus {
+            outline: none;
+            border-color: #7a9a8a;
+        }
+
+        .fics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .fic-card {
+            background: linear-gradient(to bottom, #3a3027, #2d2419);
+            border: 2px solid #5a4f47;
+            border-radius: 0;
+            padding: 28px;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .fic-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8b7a6a, transparent);
+        }
+
+        .fic-card:hover {
+            border-color: #8b7a6a;
+            box-shadow: 0 8px 25px rgba(139,122,106,0.2);
+            transform: translateY(-5px);
+        }
+
+        .fic-title {
+            color: #d4af87;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .fic-title a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+
+        .fic-title a:hover {
+            color: #e0c9b3;
+            text-shadow: 0 0 10px rgba(139,122,106,0.3);
+        }
+
+        .fic-fandom {
+            color: #b8a895;
+            font-size: 13px;
+            margin-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .fic-ship {
+            color: #a86969;
+            font-size: 15px;
+            margin-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .fic-reread {
+            color: #a8c9a8;
+            font-size: 13px;
+            margin-bottom: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .fic-notes {
+            color: #c9bfaf;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-style: italic;
+            border-left: 2px solid #5a4f47;
+            padding-left: 12px;
+        }
+
+        .fic-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background: transparent;
+            color: #8fb39a;
+            padding: 4px 12px;
+            border: 1px solid #5a4f47;
+            border-radius: 0;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            border-color: #7a9a8a;
+            color: #a8c9a8;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .small-btn {
+            background: linear-gradient(135deg, #5f7f74 0%, #4a6359 100%);
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #f5ede0;
+        }
+
+        .small-btn:hover {
+            background: linear-gradient(135deg, #7a9a8a 0%, #5f7f74 100%);
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #9e5a52 0%, #7a4540 100%);
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #f5ede0;
+            display: none;
+        }
+
+        .delete-btn.show {
+            display: block;
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #b8705f 0%, #9e5a52 100%);
+        }
+
+        .edit-mode-btn {
+            background: linear-gradient(135deg, #5a4a3a 0%, #463830 100%);
+            padding: 10px 20px;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            width: auto;
+            color: #a8c9a8;
+        }
+
+        .edit-mode-btn:hover {
+            background: linear-gradient(135deg, #6f5e52 0%, #5a4a3a 100%);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #6f5e52;
+            padding: 60px 20px;
+            font-size: 18px;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8b7a6a, transparent);
+            margin: 40px 0;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CATALOGUE</h1>
+            <p>Keerthi's Tales</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="controls">
+            <button onclick="document.getElementById('formSection').classList.toggle('show')" class="edit-mode-btn">+ Add Fic</button>
+            <button onclick="toggleEditMode()" class="edit-mode-btn">Edit Collection</button>
+        </div>
+
+        <div class="form-section" id="formSection">
+            <h2>Add to Library</h2>
+            <div class="form-group">
+                <label>Title of Work</label>
+                <input type="text" id="title" placeholder="Enter the fic title...">
+            </div>
+            <div class="form-group">
+                <label>Archive Link</label>
+                <input type="url" id="url" placeholder="https://archiveofourown.org/...">
+            </div>
+            <div class="form-group">
+                <label>Universe</label>
+                <input type="text" id="fandom" placeholder="Enter the fandom...">
+            </div>
+            <div class="form-group">
+                <label>Ship</label>
+                <input type="text" id="ship" placeholder="e.g., Character A/Character B...">
+            </div>
+            <div class="form-group">
+                <label>Themes & Elements</label>
+                <input type="text" id="tags" placeholder="e.g., romance, slow-burn, mystery...">
+            </div>
+            <div class="form-group">
+                <label>Personal Notes</label>
+                <textarea id="notes" placeholder="What makes this story special to you?"></textarea>
+            </div>
+            <div class="button-group">
+                <button onclick="addFic()">Add to Collection</button>
+                <button onclick="document.getElementById('formSection').classList.remove('show')" class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+
+        <div class="form-section" id="editForm">
+            <h2>Edit Fic</h2>
+            <div class="form-group">
+                <label>Title of Work</label>
+                <input type="text" id="editTitle" placeholder="Enter the fic title...">
+            </div>
+            <div class="form-group">
+                <label>Archive Link</label>
+                <input type="url" id="editUrl" placeholder="https://archiveofourown.org/...">
+            </div>
+            <div class="form-group">
+                <label>Universe</label>
+                <input type="text" id="editFandom" placeholder="Enter the fandom...">
+            </div>
+            <div class="form-group">
+                <label>Ship</label>
+                <input type="text" id="editShip" placeholder="e.g., Character A/Character B...">
+            </div>
+            <div class="form-group">
+                <label>Themes & Elements</label>
+                <input type="text" id="editTags" placeholder="e.g., romance, slow-burn, mystery...">
+            </div>
+            <div class="form-group">
+                <label>Personal Notes</label>
+                <textarea id="editNotes" placeholder="What makes this story special to you?"></textarea>
+            </div>
+            <div class="button-group">
+                <button onclick="saveEdit()">Save Changes</button>
+                <button onclick="document.getElementById('editForm').classList.remove('show')" class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+
+        <div class="filter-dropdown" id="filterContainer"></div>
+
+        <div class="fics-grid" id="ficsGrid"></div>
+        <div class="empty-state" id="emptyState">No entries yet</div>
+    </div>
+
+    <script>
+        let fics = [];
+        let selectedFilter = null;
+        let selectedShip = null;
+        let editMode = false;
+        let currentEditId = null;
+
+        function saveFics() {
+            localStorage.setItem('fics', JSON.stringify(fics));
+        }
+
+        function loadFics() {
+            const saved = localStorage.getItem('fics');
+            if (saved) {
+                fics = JSON.parse(saved);
+            }
+            render();
+        }
+
+        function addFic() {
+            const title = document.getElementById('title').value.trim();
+            const url = document.getElementById('url').value.trim();
+            const fandom = document.getElementById('fandom').value.trim();
+            const ship = document.getElementById('ship').value.trim();
+            const tagsInput = document.getElementById('tags').value.trim();
+            const notes = document.getElementById('notes').value.trim();
+
+            if (!title || !url || !fandom) {
+                alert('Please fill in title, link, and universe');
+                return;
+            }
+
+            fics.push({
+                id: Date.now(),
+                title: title,
+                url: url,
+                fandom: fandom,
+                ship: ship,
+                tags: tagsInput ? tagsInput.split(',').map(t => t.trim()) : [],
+                notes: notes,
+                rereadCount: 0
+            });
+
+            saveFics();
+            document.getElementById('title').value = '';
+            document.getElementById('url').value = '';
+            document.getElementById('fandom').value = '';
+            document.getElementById('ship').value = '';
+            document.getElementById('tags').value = '';
+            document.getElementById('notes').value = '';
+            document.getElementById('formSection').classList.remove('show');
+            render();
+        }
+
+        function startEdit(id) {
+            currentEditId = id;
+            const fic = fics.find(f => f.id === id);
+            if (fic) {
+                document.getElementById('editTitle').value = fic.title;
+                document.getElementById('editUrl').value = fic.url;
+                document.getElementById('editFandom').value = fic.fandom;
+                document.getElementById('editShip').value = fic.ship || '';
+                document.getElementById('editTags').value = fic.tags.join(', ');
+                document.getElementById('editNotes').value = fic.notes;
+                document.getElementById('editForm').classList.add('show');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function saveEdit() {
+            const fic = fics.find(f => f.id === currentEditId);
+            if (!fic) return;
+
+            const title = document.getElementById('editTitle').value.trim();
+            const url = document.getElementById('editUrl').value.trim();
+            const fandom = document.getElementById('editFandom').value.trim();
+            const ship = document.getElementById('editShip').value.trim();
+            const tagsInput = document.getElementById('editTags').value.trim();
+            const notes = document.getElementById('editNotes').value.trim();
+
+            if (!title || !url || !fandom) {
+                alert('Please fill in title, link, and universe');
+                return;
+            }
+
+            fic.title = title;
+            fic.url = url;
+            fic.fandom = fandom;
+            fic.ship = ship;
+            fic.tags = tagsInput ? tagsInput.split(',').map(t => t.trim()) : [];
+            fic.notes = notes;
+
+            saveFics();
+            document.getElementById('editForm').classList.remove('show');
+            currentEditId = null;
+            render();
+        }
+
+        function addReread(id) {
+            const fic = fics.find(f => f.id === id);
+            if (fic) {
+                fic.rereadCount++;
+                saveFics();
+                render();
+            }
+        }
+
+        function deleteFic(id) {
+            if (confirm('Remove this work from your collection?')) {
+                fics = fics.filter(function(f) { return f.id !== id; });
+                saveFics();
+                render();
+            }
+        }
+
+        function toggleEditMode() {
+            editMode = !editMode;
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(btn => {
+                if (editMode) {
+                    btn.classList.add('show');
+                } else {
+                    btn.classList.remove('show');
+                }
+            });
+            event.target.textContent = editMode ? 'Done Editing' : 'Edit Collection';
+        }
+
+        function updateFilters() {
+            const fandoms = [...new Set(fics.map(f => f.fandom))].sort();
+            const ships = [...new Set(fics.filter(f => f.ship).map(f => f.ship))].sort();
+            
+            let html = '<select class="dropdown-select" onchange="setFilter(\'fandom\', this.value)"><option value="">All Universes</option>';
+            for (let f of fandoms) {
+                html += '<option value="' + f + '">' + f + '</option>';
+            }
+            html += '</select>';
+            
+            if (ships.length > 0) {
+                html += '<select class="dropdown-select" onchange="setFilter(\'ship\', this.value)" style="margin-left: 10px;"><option value="">All Ships</option>';
+                for (let s of ships) {
+                    html += '<option value="' + s + '">' + s + '</option>';
+                }
+                html += '</select>';
+            }
+            
+            document.getElementById('filterContainer').innerHTML = html;
+        }
+
+        function setFilter(type, value) {
+            if (type === 'fandom') {
+                selectedFilter = value || null;
+            } else if (type === 'ship') {
+                selectedShip = value || null;
+            }
+            renderCards();
+        }
+
+        function renderCards() {
+            let filtered = fics;
+            if (selectedFilter) {
+                filtered = filtered.filter(f => f.fandom === selectedFilter);
+            }
+            if (selectedShip) {
+                filtered = filtered.filter(f => f.ship === selectedShip);
+            }
+            
+            const grid = document.getElementById('ficsGrid');
+            const empty = document.getElementById('emptyState');
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            let html = '';
+            for (let fic of filtered) {
+                html += '<div class="fic-card">';
+                html += '<div class="fic-title"><a href="' + fic.url + '" target="_blank">' + fic.title + '</a></div>';
+                html += '<div class="fic-fandom">' + fic.fandom + '</div>';
+                if (fic.ship) {
+                    html += '<div class="fic-ship">' + fic.ship + '</div>';
+                }
+                if (fic.rereadCount > 0) {
+                    html += '<div class="fic-reread">Read ' + fic.rereadCount + ' time' + (fic.rereadCount !== 1 ? 's' : '') + '</div>';
+                }
+                if (fic.notes) {
+                    html += '<div class="fic-notes">"' + fic.notes + '"</div>';
+                }
+                if (fic.tags.length > 0) {
+                    html += '<div class="fic-tags">';
+                    for (let tag of fic.tags) {
+                        html += '<span class="tag">' + tag + '</span>';
+                    }
+                    html += '</div>';
+                }
+                html += '<div class="card-buttons">';
+                html += '<button class="small-btn" onclick="addReread(' + fic.id + ')">Reread</button>';
+                html += '<button class="small-btn" onclick="startEdit(' + fic.id + ')">Edit</button>';
+                html += '<button class="delete-btn" onclick="deleteFic(' + fic.id + ')">Remove</button>';
+                html += '</div>';
+                html += '</div>';
+            }
+            grid.innerHTML = html;
+        }
+
+        function updateStats() {
+            const total = fics.length;
+            const fandoms = new Set(fics.map(f => f.fandom)).size;
+            const text = total + ' work' + (total !== 1 ? 's' : '') + ' catalogued • ' + fandoms + ' universe' + (fandoms !== 1 ? 's' : '');
+            document.getElementById('stats').textContent = text;
+        }
+
+        function render() {
+            renderCards();
+            updateFilters();
+            updateStats();
+        }
+
+        loadFics();
+    </script>
+</body>
+</html>
