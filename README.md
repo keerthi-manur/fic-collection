@@ -1,4 +1,4 @@
-A beautiful, locally-hosted catalogue for organizing and tracking your favorite fanfiction.
+A locally-hosted catalogue for organizing and tracking your favorite fanfiction.
 
 ## Features
 
@@ -14,12 +14,10 @@ A beautiful, locally-hosted catalogue for organizing and tracking your favorite 
 
 ### Option 1 - Github Page
 1. Click on https://keerthi-manur.github.io/fic-collection
-2. That's it!
 
 ### Option 2 - Opening the Catalogue
 1. Download the `index.html` file
-2. Open it in your web browser (works in Chrome, Firefox, Safari, Edge, etc.)
-3. That's it! No installation or setup needed
+2. Open it in your web browser (should work on all browsers)
 
 ### Adding Fics
 1. Click the **+ Add Fic** button
@@ -81,7 +79,7 @@ Works on all modern browsers:
 - Make sure you're using a modern browser
 
 **I accidentally deleted something**
-- Unfortunately there's no undo, but you can use a previous export backup
+- Unfortunately there's no undo
 
 ## Customization
 
@@ -89,10 +87,4 @@ You can customize the appearance by editing the CSS in the HTML file:
 - Change colors in the `:root` or specific color values
 - Modify fonts by changing the font imports
 - Adjust layout by changing grid or flexbox properties
-
-## Tips & Tricks
-
-- Use specific, searchable tags to make filtering easier
-- Add detailed notes about what makes a fic special to you
-- Regularly export your collection as a backup
-- Use the ship filter to find all your favorite pairings at a glance
+You can also change the name in the provided HTML
